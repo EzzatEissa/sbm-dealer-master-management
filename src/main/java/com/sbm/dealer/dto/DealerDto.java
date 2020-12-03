@@ -17,5 +17,5 @@ public class DealerDto extends BaseDto {
 
     private String salesPartner;
 
-    private String usedCategory;
+    private boolean usedCategory;
 }

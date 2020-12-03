@@ -14,6 +14,7 @@ public class GenericExceptionMapper extends Exception implements
 
     private String msg;
     private Integer code;
+    private String type = "error";
 
     public GenericExceptionMapper() {
         super("unknown Error");
@@ -27,6 +28,7 @@ public class GenericExceptionMapper extends Exception implements
         super(message);
         this.code = code;
         this.msg = message;
+        this.type = "error";
     }
 
     @Override

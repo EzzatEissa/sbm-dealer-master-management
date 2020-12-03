@@ -5,13 +5,15 @@ import lombok.Data;
 @Data
 public class ErrorResponse {
 
-    String errorMessage;
-    Integer errorCode;
+    String msg;
+    Integer code;
+    String type;
 
     public ErrorResponse(String errorMessage, Integer errorCode) {
         super();
-        this.errorMessage = errorMessage;
-        this.errorCode = errorCode;
+        this.msg = errorMessage;
+        this.code = errorCode;
+        this.type = "error";
     }
 
     public ErrorResponse() { }

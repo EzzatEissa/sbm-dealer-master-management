@@ -3,6 +3,7 @@ package com.sbm.dealer.controller;
 import com.sbm.dealer.common.consts.AppConstants;
 import com.sbm.dealer.common.exception.GenericExceptionMapper;
 import com.sbm.dealer.dto.DealerDto;
+import com.sbm.dealer.dto.ResultDto;
 import com.sbm.dealer.service.DealerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,10 +29,14 @@ public class DealerController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response createDealer(DealerDto dealerDto) throws GenericExceptionMapper{
         dealerService.saveDealer(dealerDto);
-        return Response.status(201).entity(AppConstants.HTTP_STATUS_CREATED).build();
+        ResultDto resultDto = new ResultDto();
+        resultDto.setCode("201");
+        resultDto.setMsg("Vehicle is created successfully");
+        resultDto.setType("success");
+        return Response.status(201).entity(resultDto).build();
     }
 
     @GET
@@ -42,19 +47,28 @@ public class DealerController {
     }
 
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     @Path("/{id}")
     public Response updateDealer(@PathParam("id") Long id, @Valid DealerDto dealerDto) throws GenericExceptionMapper{
         dealerDto.setId(id);
         dealerService.updateDealer(dealerDto);
-        return Response.status(200).entity(AppConstants.HTTP_STATUS_UPDATED).build();
+        ResultDto resultDto = new ResultDto();
+        resultDto.setCode("200");
+        resultDto.setMsg("Vehicle is updated successfully");
+        resultDto.setType("success");
+        return Response.status(200).entity(resultDto).build();
     }
 
     @DELETE
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     @Path("/{id}")
     public Response deleteDealer(@PathParam("id") Long id) throws GenericExceptionMapper {
         dealerService.deleteDealer(id);
-        return Response.status(200).entity(AppConstants.HTTP_STATUS_DELETED).build();
+        ResultDto resultDto = new ResultDto();
+        resultDto.setCode("200");
+        resultDto.setMsg("Vehicle is deleted successfully");
+        resultDto.setType("success");
+        return Response.status(200).entity(resultDto).build();
     }
 }
