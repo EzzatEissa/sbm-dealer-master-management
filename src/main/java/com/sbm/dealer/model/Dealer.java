@@ -19,5 +19,5 @@ public class Dealer extends BaseEntity {
 
     private String salesPartner;
 
-    private boolean usedCategory;
+    private Boolean usedCategory;
 }

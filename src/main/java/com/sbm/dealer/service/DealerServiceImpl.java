@@ -1,16 +1,17 @@
 package com.sbm.dealer.service;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.sbm.dealer.common.consts.AppConstants;
 import com.sbm.dealer.common.exception.GenericExceptionMapper;
 import com.sbm.dealer.common.utils.MapperHelper;
 import com.sbm.dealer.dto.DealerDto;
 import com.sbm.dealer.model.Dealer;
 import com.sbm.dealer.repository.DealerRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DealerServiceImpl implements DealerService {
@@ -76,4 +77,13 @@ public class DealerServiceImpl implements DealerService {
         else
             throw new GenericExceptionMapper(DEALER_NOT_FOUND, AppConstants.HTTP_CODE_NOT_FOUND);
     }
+
+	@Override
+	public List<DealerDto> getDealersByFields(DealerDto dealerDto) throws GenericExceptionMapper {
+		 List<Dealer> dealers = dealerRepo.getDealersByFields(dealerDto);
+	        List<DealerDto> dealersDto = mapperHelper.transform(dealers, DealerDto.class);
+	        return dealersDto;
+	}
+    
+    
 }

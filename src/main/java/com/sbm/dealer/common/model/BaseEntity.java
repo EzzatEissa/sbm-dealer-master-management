@@ -7,13 +7,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.SequenceGenerator;
 
 @MappedSuperclass
 @Data
 public class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+//    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DEALER_SEQ")
+    @SequenceGenerator(sequenceName = "DEALER_SEQ", allocationSize = 1, name = "DEALER_SEQ")
     private Long id;
 
     @Override

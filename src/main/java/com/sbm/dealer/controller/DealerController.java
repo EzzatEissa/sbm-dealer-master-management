@@ -1,17 +1,27 @@
 package com.sbm.dealer.controller;
 
-import com.sbm.dealer.common.consts.AppConstants;
+import java.util.List;
+
+import javax.validation.Valid;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.sbm.dealer.common.exception.GenericExceptionMapper;
 import com.sbm.dealer.dto.DealerDto;
 import com.sbm.dealer.dto.ResultDto;
 import com.sbm.dealer.service.DealerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.validation.Valid;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 @Service
 @Path("/dealer")
@@ -70,5 +80,25 @@ public class DealerController {
         resultDto.setMsg("Vehicle is deleted successfully");
         resultDto.setType("success");
         return Response.status(200).entity(resultDto).build();
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/search")
+    public Response getVehiclesByFields(@QueryParam("dealerName") String dealerName,
+                                        @QueryParam("dealerCode") String dealerCode,
+                                        @QueryParam("preferredDealer") String preferredDealer,
+                                        @QueryParam("salesPartner") String salesPartner,
+                                        @QueryParam("usedCategory") Boolean usedCategory
+                                        ) throws GenericExceptionMapper {
+        DealerDto dealerDto = new DealerDto();
+        dealerDto.setDealerName(dealerName);
+        dealerDto.setDealerCode(dealerCode);
+        dealerDto.setPreferredDealer(preferredDealer);
+        dealerDto.setSalesPartner(salesPartner);;
+        dealerDto.setUsedCategory(usedCategory);
+
+        List<DealerDto> dealersDto = dealerService.getDealersByFields(dealerDto);
+        return Response.status(200).entity(dealersDto).build();
     }
 }

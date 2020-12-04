@@ -1,9 +1,9 @@
 package com.sbm.dealer.service;
 
+import java.util.List;
+
 import com.sbm.dealer.common.exception.GenericExceptionMapper;
 import com.sbm.dealer.dto.DealerDto;
-
-import java.util.List;
 
 public interface DealerService {
 
@@ -16,4 +16,6 @@ public interface DealerService {
     DealerDto updateDealer(DealerDto dealerDto) throws GenericExceptionMapper;
 
     void deleteDealer(Long id) throws GenericExceptionMapper;
+    
+    List<DealerDto> getDealersByFields(DealerDto dealerDto) throws GenericExceptionMapper;
 }
