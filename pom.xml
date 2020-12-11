@@ -1,110 +1,182 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.3.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>com.sbm.dealer.master.management</groupId>
-	<artifactId>sbm-dealer-master-management</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>sbm-dealer-master-management</name>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.3.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.sbm.dealer.master.management</groupId>
+    <artifactId>sbm-dealer-master-management</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>sbm-dealer-master-management</name>
 
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
+    <properties>
+        <java.version>1.8</java.version>
+        <holon.platform.version>5.5.0</holon.platform.version>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jersey</artifactId>
-		</dependency>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Holon Platform BOM -->
+            <dependency>
+                <groupId>com.holon-platform</groupId>
+                <artifactId>bom</artifactId>
+                <version>${holon.platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-		<!-- JKube -->
-		<dependency>
-			<groupId>org.eclipse.jkube</groupId>
-			<artifactId>openshift-maven-plugin</artifactId>
-			<version>1.0.0</version>
-		</dependency>
+    <dependencies>
 
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-kubernetes-config</artifactId>
-			<version>RELEASE</version>
-		</dependency>
+        <!-- Holon JAX-RS using Jersey -->
+        <dependency>
+            <groupId>com.holon-platform.jaxrs</groupId>
+            <artifactId>holon-starter-jersey</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.12</version>
-			<scope>compile</scope>
-		</dependency>
+        <!-- Swagger V3 -->
+        <dependency>
+            <groupId>com.holon-platform.jaxrs</groupId>
+            <artifactId>holon-jaxrs-swagger-v2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-jaxrs2</artifactId>
+            <version>2.1.0</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jersey</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
+        <!-- JKube -->
+        <dependency>
+            <groupId>org.eclipse.jkube</groupId>
+            <artifactId>openshift-maven-plugin</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
-		<dependency>
-			<groupId>net.sf.dozer</groupId>
-			<artifactId>dozer</artifactId>
-			<version>5.5.1</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-kubernetes-config</artifactId>
+            <version>RELEASE</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.oracle.ojdbc</groupId>
-			<artifactId>ojdbc8</artifactId>
-		</dependency>
-<!-- 		<dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc7</artifactId>
-            <version>12.1.0</version>
-        </dependency> -->
-		
-		<!-- HikariCP connection pool -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+            <version>5.5.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.oracle.ojdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+        </dependency>
+        <!-- 		<dependency>
+                    <groupId>com.oracle</groupId>
+                    <artifactId>ojdbc7</artifactId>
+                    <version>12.1.0</version>
+                </dependency> -->
+
+        <!-- HikariCP connection pool -->
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
         </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
 
+    </dependencies>
 
-	</dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jkube</groupId>
+                <artifactId>openshift-maven-plugin</artifactId>
+                <version>1.0.0</version>
+            </plugin>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.jkube</groupId>
-				<artifactId>openshift-maven-plugin</artifactId>
-				<version>1.0.0</version>
-			</plugin>
-		</plugins>
-	</build>
+            <plugin>
+                <groupId>sbm.generators.swagger</groupId>
+                <artifactId>generator-swagger-maven-plugin</artifactId>
+                <configuration>
+                    <swaggerConfig>
+                        <info>
+                            <title>Dealer API Specification</title>
+                            <description>Swagger for Dealer API
+                                Specification
+                            </description>
+                            <version>1.0.0</version>
+                            <termsOfService>https://www.sbm.com.sa</termsOfService>
+                            <contact>
+                                <email>mhassanein@sbm.com.sa</email>
+                                <name>Saudi Business Machines</name>
+                                <url>https://www.sbm.com.sa</url>
+                            </contact>
+                        </info>
+                    </swaggerConfig>
+                    <resourcePackages>
+                        <resourcePackage>com.sbm.dealer.controller</resourcePackage>
+                    </resourcePackages>
+                    <outputFormats>
+                        <outputFormat>YAML</outputFormat>
+                        <outputFormat>JSON</outputFormat>
+                    </outputFormats>
+                    <outputDirectory>target/full</outputDirectory>
+                    <outputFilename>dealer-api</outputFilename>
+
+                    <project implementation="io.openapitools.swagger.MavenProjectStub"/>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
