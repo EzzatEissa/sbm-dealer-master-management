@@ -97,17 +97,18 @@
             <groupId>com.oracle.ojdbc</groupId>
             <artifactId>ojdbc8</artifactId>
         </dependency>
-        <!-- 		<dependency>
-                    <groupId>com.oracle</groupId>
-                    <artifactId>ojdbc7</artifactId>
-                    <version>12.1.0</version>
-                </dependency> -->
 
         <!-- HikariCP connection pool -->
+        
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
         </dependency>
+        
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -136,7 +137,7 @@
                 <version>1.0.0</version>
             </plugin>
 
-            <plugin>
+            <!-- <plugin>
                 <groupId>sbm.generators.swagger</groupId>
                 <artifactId>generator-swagger-maven-plugin</artifactId>
                 <configuration>
@@ -175,7 +176,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
         </plugins>
     </build>
 

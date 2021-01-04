@@ -4,12 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sbm.dealer.common.consts.AppConstants;
 import com.sbm.dealer.common.exception.GenericExceptionMapper;
 import com.sbm.dealer.common.utils.MapperHelper;
 import com.sbm.dealer.dto.DealerDto;
+import com.sbm.dealer.dto.PageResultDto;
 import com.sbm.dealer.model.Dealer;
 import com.sbm.dealer.repository.DealerRepo;
 
@@ -34,8 +38,18 @@ public class DealerServiceImpl implements DealerService {
     }
 
     @Override
-    public List<DealerDto> getAllDealers() {
-        return mapperHelper.transform(dealerRepo.findAll(), DealerDto.class);
+    public PageResultDto getAllDealers(int page, int size) {
+    	
+    	Pageable pageable = PageRequest.of(page, size);
+    	Page<Dealer> dealerPage = dealerRepo.findAll(pageable);
+    	
+    	PageResultDto pageResultDto = new PageResultDto();
+    	List<DealerDto> dealerDtos= mapperHelper.transform(dealerPage.getContent(), DealerDto.class);
+    	pageResultDto.setContents(dealerDtos);
+    	pageResultDto.setCurrentPage(dealerPage.getNumber());
+    	pageResultDto.setTotalPages(dealerPage.getTotalPages());
+    	pageResultDto.setTotalElements(dealerPage.getTotalElements());
+        return pageResultDto;
     }
 
     @Override
